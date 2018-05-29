@@ -27,6 +27,43 @@ namespace BankingSystem.Controllers
         }
 
         [HttpPost]
+        [Route("createExchangeRatesByUser")]
+        public async Task<IHttpActionResult> CreateExchangeRates(Models.ExRatesByUser info)
+        {
+
+            string usdPur = info.USDPurchase.Replace('.', ',');
+            string eurPur = info.EURPurchase.Replace('.', ',');
+            string usdSale = info.USDSale.Replace('.', ',');
+            string eurSale = info.EURSale.Replace('.', ',');
+
+            double usdPurchase = Convert.ToDouble(usdPur);
+            double eurPurchase = Convert.ToDouble(eurPur);
+            double usdSalee = Convert.ToDouble(usdSale);
+            double eurSalee = Convert.ToDouble(eurSale);
+
+            ExchangeRates rates = new ExchangeRates
+            {
+                BankId = info.BankId,
+                USDPurchase = usdPurchase,
+                USDSale = usdSalee,
+                EURPurchase = eurPurchase,
+                EURSale = eurSalee
+            };
+
+            try
+            {
+                await _exchangeRatesService.RemoveExchangeRatesByBankIdAsync(info.BankId);
+                await _exchangeRatesService.SaveExchangeRatesAsync(rates);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+
+            return Ok();
+        }
+
+        [HttpPost]
         [Route("createExchangeRates")]
         public async Task<IHttpActionResult> CreateExchangeRates(Models.ExchangeRatesInfo info)
         {

@@ -248,6 +248,7 @@
     <Compile Include="Models\CurrencyExchange.cs" />
     <Compile Include="Models\DateAndTime.cs" />
     <Compile Include="Models\ExchangeRatesInfo.cs" />
+    <Compile Include="Models\ExRatesByUser.cs" />
     <Compile Include="Models\TicketForWorker.cs" />
     <Compile Include="Models\TicketInfo.cs" />
     <Compile Include="Models\TipsNumber.cs" />

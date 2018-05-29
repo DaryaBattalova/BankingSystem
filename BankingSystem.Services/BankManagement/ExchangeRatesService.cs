@@ -26,6 +26,11 @@ namespace BankingSystem.Services.BankManagement
         public Task RemoveExchangeRatesByBankIdAsync(int bankId)
         {
             var rate = _context.ExchangeRates.FirstOrDefault(r => r.BankId == bankId);
+            if (rate == null)
+            {
+                return _context.SaveChangesAsync(); ;
+            }
+
             _context.ExchangeRates.Remove(rate);
             return _context.SaveChangesAsync();
         }
